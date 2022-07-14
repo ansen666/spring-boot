@@ -1,5 +1,5 @@
 server:
-  port: 8090 #tomcat端口号
+  port: 8080 #tomcat端口号
 
 mybatis:
   configuration:

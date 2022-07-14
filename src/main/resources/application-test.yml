@@ -1,2 +1,2 @@
 server:
-  port: 8099 #tomcat端口号
+  port: 8080 #tomcat端口号

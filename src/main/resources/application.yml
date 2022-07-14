@@ -1,6 +1,10 @@
 #server:
 #  port: 8080 #tomcat端口号
 
+server:
+  servlet:
+    context-path: /spring-boot #加上访问名称
+
 app:
   name:
     xxx:
