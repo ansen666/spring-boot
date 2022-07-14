@@ -1,0 +1,60 @@
+#server:
+#  port: 8080 #tomcat端口号
+
+app:
+  name:
+    xxx:
+      yyy:
+        zzz: imooc
+
+self:
+  custom:
+    config:
+      sdkSecrect: abc123
+      host: https://www.imooc.com
+      port: ${server.port}
+
+spring:
+#  mvc:
+#    static-path-pattern: /abc/** #设置 静态资源前缀
+  profiles:
+    active: test #多环境配置 开发模式用:dev 测试环境用:test
+
+  banner:
+    location: classpath:banner/banner.txt
+  datasource: #数据源相关的节点
+    type: com.zaxxer.hikari.HikariDataSource  #指定数据源类型
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql数据库驱动
+    url: jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    hikari:
+      connection-timeout: 30000         #等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException，默认30秒
+      minimum-idle: 5                   #最小连接数
+      maximum-pool-size: 20             #最大连接数
+      auto-commit: true                 #自动提交
+      idle-timeout: 600000              #连接池超时最大时长，超时则被释放（retired），默认10分钟
+      pool-name: DateSourceHikariCP     #连接池名字
+      max-lifetime: 1800000             #连接池生命时长（毫秒） 超时而且没被使用则被释放（retired），默认30分钟
+      connection-test-query: SELECT 1
+
+  thymeleaf: #配置模版
+    prefix: classpath:/templates/html/
+    suffix: .html
+
+# mybatis相关配置
+mybatis:
+  type-aliases-package: com.imooc.imoocspringbootstarter.pojo #所有数据库表逆向后所--对应
+  mapper-locations: classpath:mappers/*.xml ##所有mapper映射的文件所在目录位置
+
+#通用mapper配置
+mapper:
+  mappers: com.imooc.imoocspringbootstarter.base.MyMapper #所有mapper都需要实现的接口
+  not-empty: false #在进行数据库操作的时候，判断一个属性是否为空的时候，是否需要自动追加不为空字符串的判断
+                   #username!=null 后面不需要 username!=''
+  identity: MYSQL
+
+#分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
