@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -15,17 +16,33 @@
     <name>imooc-springboot-starter</name>
     <description>imooc-springboot-starter</description>
 
-<!--    打包成jar包-->
-    <packaging>jar</packaging>
+<!--    打包成war包-->
+    <packaging>war</packaging>
 
     <properties>
         <java.version>8</java.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+
+            <!-- 首先把tomcat从web集成中移除 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--        单独引用tomcat，scope设置provided，这样运行的时候使用内置的tomcat，但是打war包的时候不内置 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
 <!--        lombok插件 自动生成get set方法， 自带log4j日志框架-->
